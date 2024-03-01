@@ -6,9 +6,10 @@ from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 import config
 
-print("starting...")
+print("Starting...")
 BOT_TOKEN = config.BOT_TOKEN
 CHAT_ID = config.CHAT_ID2
+
 
 url_list = [
     'https://broneering.transpordiamet.ee/make-reservation/select-time?ServiceId=vPK3ho0xI0-ucFWQOXF0Gw&BranchId=GqjPP2zRcEitEbsK4wsFXw',
