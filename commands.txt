@@ -1,0 +1,5 @@
+settime1 - Check today only
+settime2 - Check 2 days
+settime3 - Check 3 days
+settime4 - Check 4 days
+settime5 - Check 5 days
