@@ -10,6 +10,8 @@ print("Starting...")
 BOT_TOKEN = config.BOT_TOKEN
 CHAT_ID = config.CHAT_ID2
 
+start_date = 8
+end_date = 11
 
 url_list = [
     'https://broneering.transpordiamet.ee/make-reservation/select-time?ServiceId=vPK3ho0xI0-ucFWQOXF0Gw&BranchId=GqjPP2zRcEitEbsK4wsFXw',
@@ -29,24 +31,29 @@ url_list = [
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
 }
-for url in url_list:
 
+for url in url_list:
     def get_available_dates(url):
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             soup = BeautifulSoup(response.content, 'html.parser')
             available_dates = []
-
+            
+            month = soup.find('div', class_='selected month')
+            month = month.get_text(strip=True)
+            month = month.split(" ")[0]
+            
             clickable_days = soup.find_all('div', class_='day clickable')
             
             for day in clickable_days:
                 date_text = day.get_text(strip=True)
+                print(date_text)
                 times = day['times'].split(';')
                 available_times = [time.strip().split('|')[0] for time in times]
                 date_number = int(date_text)
 
-                if 8 <= date_number <= 11:
-                    available_dates.append(f"UUED AJAD: {url}     September {date_text}: {'  ,  '.join(available_times)}")
+                if start_date <= date_number <= end_date:
+                    available_dates.append(f"UUED AJAD: {url} {month} {date_text}: {'  ,  '.join(available_times)}")
 
                 if available_dates:
                     break
